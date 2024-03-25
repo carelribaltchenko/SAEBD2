@@ -40,7 +40,7 @@ where g_ea_lib_vx = "I.U.T d'Orléans";
 
 select cod_uai, g_ea_lib_vx, ville_etab, FILI
 from ETABLISSEMENT natural join VOEUX natural join FORMATION natural join FILIERE natural join DEPARTEMENT
-where departement = "Creuse";
+where dep_lib = "Creuse";
 
 -- +-----------------------+--
 -- * Question 207458 : 2pts --
@@ -74,7 +74,7 @@ where session = 2023 and FILI = 'BUT' and fil_lib_voe_acc='Qualité, logistique 
 -- | etc...
 -- = Reponse question 207492.
 
-<@643852334513913866> select cod_uai, g_ea_lib_vx, ville_etab
+select cod_uai, g_ea_lib_vx, ville_etab
 from ETABLISSEMENT natural join DEPARTEMENT
 where contrat_etab = 'Public' and dep_lib='Loiret' and g_ea_lib_vx LIKE 'Lycée%';
 
@@ -158,8 +158,7 @@ where FILI!='Licence');
 
 select acad_mies, count(*) nb_et 
 from ACADEMIE natural join DEPARTEMENT natural join ETABLISSEMENT
-group by num_aca
-having contrat_etab = 'public';
+where contrat_etab = 'Public' group by num_aca;
 
 -- +-----------------------+--
 -- * Question 207661 : 2pts --
@@ -214,11 +213,11 @@ where session = 2023 and nb_voe_pp in (select max(nb_voe_pp) from STATS where se
 -- | etc...
 -- = Reponse question 207740.
 
-with region22 as (select region_etab_aff, sum(voeux) voeux22 
+with region22 as (select region_etab_aff, sum(num_voe) voeux22 
                   from REGION natural join DEPARTEMENT natural join ETABLISSEMENT natural join VOEUX natural join STATS
-                  where session = 2022 group by region_etab_aff)
+                  where session = 2022 group by region_etab_aff),
 
-with region23 as (select region_etab_aff, sum(voeux) voeux23 
+region23 as (select region_etab_aff, sum(num_voe) voeux23 
                   from REGION natural join DEPARTEMENT natural join ETABLISSEMENT natural join VOEUX natural join STATS
                   where session = 2023 group by region_etab_aff)
 
