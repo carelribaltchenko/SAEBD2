@@ -261,3 +261,8 @@ where acad_mies = "Orléans-Tours" and session=2023 group by fili;
 select FILI, ifnull(SUM(capa_fin),0) as nb_voeux
 from FILIERE natural left join FORMATION natural left join VOEUX natural left join STATS
 where session=2023 and select_form='formation sélective' group by FILI;
+
+--requette pour obtenir V:
+select num_reg, count(num_form)
+from REGION natural join DEPARTEMENT natural join ETABLISSEMENT natural join STATS
+where session=2022 group by num_reg
