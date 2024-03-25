@@ -227,7 +227,6 @@ from region22 natural join region23
 where voeux22>voeux23;
 
 
-
 -- +-----------------------+--
 -- * Question 207751 : 2pts --
 -- +-----------------------+--
@@ -242,7 +241,9 @@ where voeux22>voeux23;
 -- | etc...
 -- = Reponse question 207751.
 
-
+select fili, count(*) as nb_form
+from FILIERE natural join FORMATION natural join VOEUX natural join STATS natural join ETABLISSEMENT natural join DEPARTEMENT natural join ACADEMIE
+where acad_mies = "Orléans-Tours" and session=2023 group by fili;
 
 -- +-----------------------+--
 -- * Question 207807 : 2pts --
@@ -258,5 +259,6 @@ where voeux22>voeux23;
 -- | etc...
 -- = Reponse question 207807.
 
-
-
+select FILI, ifnull(SUM(capa_fin),0) as nb_voeux
+from FILIERE natural left join FORMATION natural left join VOEUX natural left join STATS
+where session=2023 and select_form='formation sélective' group by FILI;
