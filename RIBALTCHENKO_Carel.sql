@@ -264,5 +264,11 @@ where session=2023 and select_form='formation sélective' group by FILI;
 
 --requette pour obtenir V:
 select num_reg, count(num_form)
-from REGION natural join DEPARTEMENT natural join ETABLISSEMENT natural join STATS
-where session=2022 group by num_reg
+from REGION natural join DEPARTEMENT natural join ETABLISSEMENT natural join FORMATION natural join VOEUX natural join STATS
+where session=2022 group by num_reg;
+
+--requête pour avoir E:
+
+select num_reg, sum(nb_voe_pp)
+from REGION natural join DEPARTEMENT natural join ETABLISSEMENT natural join VOEUX natural join FORMATION natural join STATS
+where session=2022 group by num_reg; 
